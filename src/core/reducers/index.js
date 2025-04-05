@@ -1,6 +1,7 @@
 import stylesReducer from './stylesReducer'
-import getListReducer from './getListReducer'
+import getCatalogReducer from './getCatalogReducer'
+import infoReducer from './infoReducer'
 
 export const rootReducer = () => {
-    return { stylesReducer, getListReducer }
+    return { stylesReducer, getCatalogReducer, infoReducer }
 }

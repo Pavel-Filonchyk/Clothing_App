@@ -2,13 +2,13 @@ import { legacy_createStore as createStore, applyMiddleware, combineReducers } f
 import createSagaMiddleware from 'redux-saga'
 
 import { rootReducer } from './reducers'
-//import rootSaga from './sagas'
+import rootSaga from './sagas'
 
-//const sagaMiddleware = createSagaMiddleware()
+const sagaMiddleware = createSagaMiddleware()
 const reducers = combineReducers(rootReducer())
  
-const store = createStore(reducers, applyMiddleware())
+const store = createStore(reducers, applyMiddleware(sagaMiddleware))
 
-//sagaMiddleware.run()
+sagaMiddleware.run(rootSaga)
 
 export default store

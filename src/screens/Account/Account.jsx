@@ -1,26 +1,25 @@
 import React, { useState } from 'react'
-import { View, StyleSheet, TouchableOpacity, Image, Text } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, Image, Text, TextInput } from 'react-native'
+
+import Registration from './Registration'
 
 export default function Account() {
 
-    return (
-        <View style={styles.account}>
-            <Text style={styles.text}>АККАУНТ</Text>
-        </View>
-    )
+   const [showRegistartion, setShowRegistration] = useState(true)
+
+   return (
+      <View style={styles.account}>
+         <Text style={{display: showRegistartion ? 'none' : 'flex'}}>Account</Text>
+         <Registration/>
+      </View>
+      
+   )
 }
 
 const styles = StyleSheet.create({
-    account: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    text: {
-        position: 'absolute',
-        top: '50%',
-        fontSize: 42,
-        fontWeight: 900,
-        color: 'gray'
-    }
+   account: {
+      flex: 1,
+      alignItems: 'center',
+   },
+
 })

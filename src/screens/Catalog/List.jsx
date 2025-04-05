@@ -1,20 +1,21 @@
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { Link } from 'react-router-native'
+import { useNavigate } from 'react-router-native'
 import { View, StyleSheet, TouchableOpacity, Image, Text } from 'react-native'
 
 export default function List() {
+    const navigate = useNavigate()
 
-    const list = useSelector(({getListReducer: { list }}) => list)
+    const list = useSelector(({getCatalogReducer: { list }}) => list)
 
     return (
         <View style={styles.list}>
-            <Link to='/catalog' style={styles.link}>
+            <TouchableOpacity onPress={() => navigate('/catalog')} activeOpacity={1} style={styles.link}>
                 <Image 
                     style={styles.arrowLeft}
                     source={require('./images/arrowLeft.png')}
                 />
-            </Link>
+                </TouchableOpacity>
             <View style={styles.wrapImg}>
                 <Image 
                     style={styles.listImg}

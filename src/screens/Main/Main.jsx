@@ -1,8 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { View, StyleSheet, TouchableOpacity, Image, Text } from 'react-native'
 
-export default function Main() {
+import { getCatalog } from '../../core/actions/getCatalogAction'
 
+export default function Main() {
+    const dispatch = useDispatch()
+    
+    useEffect(() => {
+        dispatch(getCatalog())
+    }, [])
+    
     return (
         <View style={styles.main}>
             <View style={styles.wrapImg}>

@@ -4,4 +4,3 @@ export const changeNamePage = (data) => {
         payload: data 
     } 
 }
-//export const SEND_CODE_DATA = 'SEND_CODE_DATA'
