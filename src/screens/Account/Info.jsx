@@ -5,13 +5,17 @@ import { View, StyleSheet, TouchableOpacity, Image, Text, TextInput, ScrollView 
 
 import Record from '../../components/Registration/Record'
 import PasswordRecovery from '../../components/Registration/PasswordRecovery'
+import PaymentDelivery from '../../components/Info/PaymentDelivery'
 import OfferAgreement from '../../components/Info/OfferAgreement'
+import Return from '../../components/Info/Return'
+import Contact from '../../components/Info/Contact'
+import Support from '../../components/Info/Support'
 
 export default function Info() {
    const navigate = useNavigate()
 
    const info = useSelector(({infoReducer: { info }}) => info)
-   console.log(info)
+
    return (
       <View style={styles.info}>
          <View style={styles.wrapTitle} >
@@ -28,8 +32,20 @@ export default function Info() {
          <View style={{display: info === 'forgot password' ? 'flex' : 'none', width: '100%'}}>
             <PasswordRecovery/>
          </View>
+         <View style={{display: info === 'payment and delivery' ? 'flex' : 'none'}}>
+            <PaymentDelivery/>
+         </View>
+         <View style={{display: info === 'return' ? 'flex' : 'none'}}>
+            <Return/>
+         </View>
          <View style={{display: info === 'offer agreement' ? 'flex' : 'none'}}>
             <OfferAgreement/>
+         </View>
+         <View style={{display: info === 'contact' ? 'flex' : 'none'}}>
+            <Contact/>
+         </View>
+         <View style={{display: info === 'support' ? 'flex' : 'none'}}>
+            <Support/>
          </View>
       </View>
    )

@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet, TouchableOpacity, Image, Text, ScrollView } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, Text, ScrollView, Linking } from 'react-native'
 
 export default function OfferAgreement() {
   return (
@@ -10,7 +10,9 @@ export default function OfferAgreement() {
             {`
                Настоящий Публичный договор (далее по тексту «Договор») определяет порядок продажи товаров через Интернет-магазин www.q5.by, именуемый в дальнейшем Интернет-магазин q5.by, принадлежащий OOO "Ты прекрасна". Свидетельство о регистрации 0180437 от 14.04.2022г. выданное Администрацией Московского р-на г. Бреста, Покупателю, принявшему (акцептовавшему) публичное предложение (оферту) о заключении настоящего Договора. Договор может быть изменен без предварительного уведомления. Текущая версия договора доступна по адресу
             `}
-            <Text style={styles.title}>https://www.q5.by/dogovor.</Text>
+            <TouchableOpacity
+               onPress={() => Linking.openURL('https://www.q5.by/dogovor')} 
+            ><Text style={styles.text}>https://www.q5.by/dogovor</Text></TouchableOpacity>
             {`
                Договор предлагается на условиях публичной оферты согласно ст.407 Гражданского кодекса Республики Беларусь. В частности, размещение текста публичного договора на официальном сайте www.q5.by является предложением, адресованным неопределенному кругу лиц с целью заключить договор на указанных в предложении условиях с любым, кто обратится.
                Лицо, производящее акцепт этой оферты становится Покупателем. Оплачивая товар через сайт www.q5.by, Покупатель принимает и соглашается со всеми условиями, изложенными в настоящем договоре и с информацией, размещенной на сайте Продавца в момент оплаты товара.
@@ -166,6 +168,11 @@ const styles = StyleSheet.create({
       marginRight: 'auto',
       marginLeft: 'auto',
       fontWeight: 600,
-      fontSize: 16
+      fontSize: 16,
+      
+   },
+   text: {
+      color: 'blue',
+      textDecorationLine: 'underline',
    }
 })
