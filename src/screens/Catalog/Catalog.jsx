@@ -14,43 +14,36 @@ export default function Catalog() {
     const onCatalog = (arg) => {
         //console.log(arg)
         if (arg.index < 5){
-            dispatch(getSubcatalog(arg.subcatalog))
+            dispatch(getSubcatalog(arg))
             navigate('/subcatalog')
         } else {
-            dispatch(getList(arg.list))
+            dispatch(getList(arg))
             navigate('/list')
         }
     }
 
-    const images = [
-        <Image style={{width: 28, height: 32}} source={require('./images/list.png')}/>,
-        <Image style={styles.img} source={require('./images/new.png')}/>,
-        <Image style={{width: 29, height: 29}} source={require('./images/office.png')}/>,
-        <Image style={{width: 29, height: 29}} source={require('./images/pop.png')}/>,
-        <Image style={styles.img} source={require('./images/%.png')}/>,
-        <Image style={{width: 29, height: 29}} source={require('./images/premium.png')}/>,
-        <Image style={styles.img} source={require('./images/fashion.png')}/>,
-        <Image style={{width: 32, height: 38}} source={require('./images/bigSize.png')}/>,
-        <Image style={{width: 34, height: 39}} source={require('./images/beauti.png')}/>
-    ]
-
     return (
         <View style={styles.catalog}>
-            <ScrollView>
+            <View style={styles.header}>
+                <Text style={styles.title}>Поиск</Text>
+                <TouchableOpacity>
+                    <Image 
+                        style={styles.search}
+                        source={require('./images/search.png')}
+                    />
+                </TouchableOpacity>
+            </View>
+            <ScrollView showsVerticalScrollIndicator={false}>
                 {catalog.map((item, index) => {
                     return (
                         <TouchableOpacity style={styles.block}
                             key={item.id}
                             onPress={() => onCatalog({subcatalog: item.subcatalog, list: item.nameCatalog, index})}
                         >
-                            <View style={{width: 34, height: 34, marginRight: 10}}>
-                                {images[index]}
-                            </View>
                             <Text style={styles.text}>{item.nameCatalog}</Text>
                             {
-                                index < 5 ? <Image style={styles.arrow} source={require('./images/arrowRight.png')}/> : ''
+                                index < 5 ? <Image style={styles.arrow} source={require('./images/arrow.png')}/> : ''
                             }
-                            
                         </TouchableOpacity>
                     )
                 })}
@@ -64,6 +57,24 @@ const styles = StyleSheet.create({
         flex: 1,
         marginTop: 68
     },
+    header: {
+        height: 40,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        borderBottomWidth: 1,
+        borderColor: '#e9eff1',
+        marginBottom: 16
+     },
+     title: {
+        fontSize: 20,
+        color: 'gray',
+        marginLeft: 50
+     },
+    search: {
+        width: 32,
+        height: 32,
+        marginRight: 20
+    },
     block: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -71,14 +82,14 @@ const styles = StyleSheet.create({
         marginLeft: 30,
         marginRight: 30,
         borderBottomWidth: 1,
-        borderColor: 'gray',
+        borderColor: '#e9eff1',
     },
     img: {
         width: 32,
         height: 32
     },
     text: {
-        fontSize: 18,
+        fontSize: 17,
         color: '#454545',
     },
     arrow: {

@@ -1,14 +1,32 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-native'
 import { Formik } from 'formik'
 import { View, StyleSheet, TouchableOpacity, Image, Text, TextInput, ScrollView } from 'react-native'
 
 import { changeInfo } from '../../core/actions/infoAction'
+import { sendRegister } from '../../core/actions/loginAction'
 
 export default function Login() {
    const dispatch = useDispatch()
    const navigate = useNavigate()
+
+   const statusRegister = useSelector(({loginReducer: { statusRegister }}) => statusRegister)
+   
+   useEffect(() => {
+      console.log(statusRegister)
+      //navigate('/account')
+      //Выполняется вход пользователя
+   }, [statusRegister])
+   
+
+   const onSubmit = (arg) => {
+      dispatch(sendRegister({
+         "action": "login",
+         "email": arg.email,
+         "password": arg.password
+      }))
+   }
 
    const onToInfo = (arg) => {
       dispatch(changeInfo(arg))
@@ -20,7 +38,7 @@ export default function Login() {
       <Text style={styles.titleInput}>Войти по логину</Text>
       <Formik
          initialValues={{email: '', password: ''}}
-         onSubmit={values => console.log(values)}
+         onSubmit={values => onSubmit(values)}
          validate={values => {
             const errors = {}
             if (!values.email) errors.email = 'Введите Email'
@@ -44,7 +62,7 @@ export default function Login() {
                   style={styles.textInput}
                />
                {touched.email && errors.email && (<Text style={styles.error}>{errors.password}</Text>)}
-               <TouchableOpacity onPress={() => onToInfo('forgot password')} style={styles.wrapForgotPassword}>
+               <TouchableOpacity onPress={() => onToInfo('Восстановление пароля')} style={styles.wrapForgotPassword}>
                   <Text style={styles.textForgotPassword}>Забыли пароль?</Text>
                </TouchableOpacity>
                
@@ -57,7 +75,7 @@ export default function Login() {
             </>
          )}
       </Formik>
-      <TouchableOpacity onPress={() => onToInfo('registration')}>
+      <TouchableOpacity onPress={() => onToInfo('Регистрация аккаунта')}>
          <Text style={styles.textRegistration}>Нет аккаунта? <Text style={styles.textForgotPassword}> Зарегистрируйтесь</Text></Text>
       </TouchableOpacity>
    </View>
@@ -79,7 +97,7 @@ const styles = StyleSheet.create({
    textInput: {
       height: 60, 
       width: '100%',
-      borderColor: 'darkgray', 
+      borderColor: '#e9eff1', 
       borderWidth: 1,
       fontSize: 16,
       marginTop: 20,

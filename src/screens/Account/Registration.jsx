@@ -2,14 +2,19 @@ import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-native'
 import { View, StyleSheet, TouchableOpacity, Image, Text, TextInput, ScrollView, Linking } from 'react-native'
+import InfoBlock from '../../components/Info/InfoBlock'
+import Flag from 'react-native-flags'
 
 import Login from '../../components/Registration/Login'
+import NetWorks from '../../components/NetWorks/NetWorks'
 import { changeInfo } from '../../core/actions/infoAction'
 
 export default function Registration() {
    const dispatch = useDispatch()
    const navigate = useNavigate()
    
+   const [currency, setCurrency] = useState('BYN')
+
    const onShowInfo = (arg) => {
       dispatch(changeInfo(arg))
       navigate('/info')
@@ -20,7 +25,7 @@ export default function Registration() {
      if (supported) {
          await Linking.openURL(url)
       } else if (fallbackUrl) {
-         await Linking.openURL(fallbackUrl);
+         await Linking.openURL(fallbackUrl)
      } else {
          Alert.alert('Ошибка', 'Невозможно открыть ссылку')
      }
@@ -28,83 +33,40 @@ export default function Registration() {
    
    return (
       <View style={styles.registration}>
-         <View style={styles.wrapTitle} >
-            <Text style={styles.title}>Аккаунт</Text>
-         </View>
-         <ScrollView style={styles.scroll}>
+         <ScrollView style={styles.scroll} showsVerticalScrollIndicator={false}>
             <Login/>
             <View style={styles.line}/>
-            
+
+            {/* currency */}
+            <TouchableOpacity style={info.blockFlags}
+               //onPress={() => onShowInfo('')}
+            >
+               <Text style={info.textInfo}>Валюта</Text>
+               <TouchableOpacity onPress={() => setCurrency(prev => prev === 'BYN' ? 'RUB' : 'BYN')}>
+                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                     <Flag 
+                        code={currency === 'BYN' ? 'BY' : 'RU'} 
+                        size={32} 
+                     />
+                     <Text style={{marginLeft: 8, color: '#454545'}}>
+                        {currency === 'BYN' ? 'BYN' : 'RUB'}
+                     </Text>
+                  </View>
+               </TouchableOpacity>
+            </TouchableOpacity>
             {/* info */}
-            <View style={info.blockInfo}>
-               <TouchableOpacity style={info.block}
-                  onPress={() => onShowInfo('payment and delivery')}
-               >
-                  <Text style={info.textInfo}>Оплата и доставка</Text>
-               </TouchableOpacity>
-               <TouchableOpacity style={info.block}
-                  onPress={() => onShowInfo('return')}
-               >
-                  <Text style={info.textInfo}>Возврат</Text>
-               </TouchableOpacity>
-               <TouchableOpacity style={info.block}
-                  onPress={() => onShowInfo('contact')}
-               >
-                  <Text style={info.textInfo}>Контакты</Text>
-               </TouchableOpacity>
-               <TouchableOpacity style={info.block}
-                  onPress={() => onShowInfo('offer agreement')}
-               >
-                  <Text style={info.textInfo}>Договор публичной оферты</Text>
-               </TouchableOpacity>
-            </View>
+            <InfoBlock/>
             <View style={styles.wrapBtn}>
                <TouchableOpacity 
                   style={styles.btn}
-                  onPress={() => onShowInfo('support')}
+                  onPress={() => onShowInfo('Связаться с поддержкой')}
                >
                   <Text style={styles.textBtn}>Связаться с поддержкой</Text>                            
                </TouchableOpacity>
             </View>
-
             {/* networks */}
-            <View style={info.wrapNetworks}>
-               <TouchableOpacity
-                  onPress={() => Linking.openURL('tg://msg?text=Привет&to=375297332555')}
-               >
-                  <Image style={[info.img, {height: 43, width: 43}]}
-                     source={require('./images/telega.png')}
-                  />
-               </TouchableOpacity>
-              <TouchableOpacity
-                  onPress={() => openLink('instagram://user?username=q5_official', 'https://instagram.com/q5_official')}
-              >
-               <Image style={info.img}
-                     source={require('./images/insta.png')}
-                  />
-              </TouchableOpacity>
-               <TouchableOpacity
-                  onPress={() => openLink('tiktok://user?username=q5.by', 'https://www.tiktok.com/@q5.by')}
-               >
-                  <Image style={[info.img, {height: 39, width: 39}]}
-                     source={require('./images/tik-tok.png')}
-                  />
-               </TouchableOpacity>
-               <TouchableOpacity
-                 onPress={() => Linking.openURL('https://www.youtube.com/@-q5by')}
-               >
-                  <Image style={[info.img, {height: 43, width: 44}]}
-                     source={require('./images/youtube.png')}
-                  />
-               </TouchableOpacity>
-               <TouchableOpacity
-                  onPress={() => openLink('ok://group/56631130456180', 'https://ok.ru/group/56631130456180')}
-               >
-                  <Image style={[info.img, {height: 39, width: 39}]}
-                     source={require('./images/ok.png')}
-                  />
-               </TouchableOpacity>
-            </View>
+            <NetWorks/>
+            
          </ScrollView>
       </View>
    )
@@ -114,15 +76,15 @@ const styles = StyleSheet.create({
    registration: {
       flex: 1,
       alignItems: 'center',
-      marginTop: 50,
-      width: '100%'
+      width: '100%',
+      paddingBottom: 50
    },
    wrapTitle: {
       width: '100%',
       height: 38,
       alignItems: 'center',
       borderBottomWidth: 1,
-      borderColor: 'darkgray',
+      borderColor: '#e9eff1',
    },
    title: {
       fontSize: 18,
@@ -208,24 +170,23 @@ const styles = StyleSheet.create({
 })
 
 const info = StyleSheet.create({
-   blockInfo: {
-      with: '100%',
-      paddingLeft: 32,
-      paddingRight: 32,
-      marginTop: 10,
-   },
-   block: {
-      justifyContent: 'center',
+   blockFlags: {
+      marginLeft: 32,
+      marginRight: 32,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
       height: 52,
       borderBottomWidth: 1,
-      borderColor: 'darkgray',
+      borderColor: '#e9eff1',
       paddingLeft: 8,
-      marginTop: 8
+      marginTop: 12
    },
    textInfo: {
       fontSize: 17,
       color: '#454545',
    },
+
    wrapNetworks: {
       width: '100%',
       flexDirection: 'row',

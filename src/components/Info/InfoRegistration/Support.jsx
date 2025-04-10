@@ -5,7 +5,7 @@ export default function Support() {
   return (
      <View style={styles.support}>
       
-      <ScrollView >
+      <ScrollView showsVerticalScrollIndicator={false}>
          <View style={{width: '100%'}}>
             <Text style={styles.title}>Контакт центр</Text>
          </View>
@@ -27,8 +27,7 @@ export default function Support() {
             `
       E-mail: info@q5.by
 
-      Пн - Пт  8:00 - 21:00
-      Сб - ВС  9:00 - 21:00
+      Пн - Вс  8:30 - 17:30 по MCK
             `}
          </Text>
          <View style={styles.wrapBtn}>

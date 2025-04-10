@@ -5,11 +5,15 @@ import { View, StyleSheet, TouchableOpacity, Image, Text, TextInput, ScrollView 
 
 import Record from '../../components/Registration/Record'
 import PasswordRecovery from '../../components/Registration/PasswordRecovery'
-import PaymentDelivery from '../../components/Info/PaymentDelivery'
-import OfferAgreement from '../../components/Info/OfferAgreement'
-import Return from '../../components/Info/Return'
-import Contact from '../../components/Info/Contact'
-import Support from '../../components/Info/Support'
+
+import PaymentDelivery from '../../components/Info/InfoRegistration/PaymentDelivery'
+import OfferAgreement from '../../components/Info/InfoRegistration/OfferAgreement'
+import Return from '../../components/Info/InfoRegistration/Return'
+import Contact from '../../components/Info/InfoRegistration/Contact'
+import Support from '../../components/Info/InfoRegistration/Support'
+import InfoAccount from '../../components/Info/InfoAccaunt/InfoAccount'
+import ReviewsQuestions from '../../components/Info/InfoAccaunt/ReviewsQuestions'
+import InfoBlock from '../../components/Info/InfoBlock'
 
 export default function Info() {
    const navigate = useNavigate()
@@ -25,28 +29,47 @@ export default function Info() {
                   source={require('./images/arrowLeft.png')}
                />
             </TouchableOpacity>
+            <Text style={styles.title}>{info}</Text>
+            <View style={{width: 60}}/>
          </View>
-         <View style={{display: info === 'registration' ? 'flex' : 'none', width: '100%'}}>
+
+         {/* Регистрация */}
+         <View style={{display: info === 'Регистрация аккаунта' ? 'flex' : 'none', width: '100%'}}>
             <Record/>
          </View>
-         <View style={{display: info === 'forgot password' ? 'flex' : 'none', width: '100%'}}>
+         <View style={{display: info === 'Восстановление пароля' ? 'flex' : 'none', width: '100%'}}>
             <PasswordRecovery/>
          </View>
-         <View style={{display: info === 'payment and delivery' ? 'flex' : 'none'}}>
+         <View style={{display: info === 'Оплата и доставка' ? 'flex' : 'none'}}>
             <PaymentDelivery/>
          </View>
-         <View style={{display: info === 'return' ? 'flex' : 'none'}}>
+         <View style={{display: info === 'Возврат' ? 'flex' : 'none'}}>
             <Return/>
          </View>
-         <View style={{display: info === 'offer agreement' ? 'flex' : 'none'}}>
+         <View style={{display: info === 'Договор публичной оферты' ? 'flex' : 'none'}}>
             <OfferAgreement/>
          </View>
-         <View style={{display: info === 'contact' ? 'flex' : 'none'}}>
+         <View style={{display: info === 'Контакты' ? 'flex' : 'none'}}>
             <Contact/>
          </View>
-         <View style={{display: info === 'support' ? 'flex' : 'none'}}>
+         <View style={{display: info === 'Связаться с поддержкой' ? 'flex' : 'none'}}>
             <Support/>
          </View>
+
+         {/* Аккаунт */}
+         <View style={{display: info === 'Мои заказы' ? 'flex' : 'none'}}>
+            <InfoAccount/>
+         </View>
+         <View style={{display: info === 'Мои отзывы и вопросы' ? 'flex' : 'none'}}>
+            <ReviewsQuestions/>
+         </View>
+         <View style={{display: info === 'Уведомления' ? 'flex' : 'none'}}>
+            <InfoAccount/>
+         </View>
+         <View style={{display: info === 'Информация для клиента' ? 'flex' : 'none', width: '100%'}}>
+            <InfoBlock/>
+         </View>
+
       </View>
    )
 }
@@ -61,8 +84,15 @@ const styles = StyleSheet.create({
    wrapTitle: {
       width: '100%',
       height: 38,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
       borderBottomWidth: 1,
-      borderColor: 'darkgray',
+      borderColor: '#e9eff1',
+   },
+   title: {
+      fontSize: 18,
+      color: '#454545',
    },
    arrowLeft: {
       width: 32,

@@ -22,7 +22,7 @@ export default function List() {
                     source={require('./images/list.jpg')}
                 />
             </View>
-            <Text style={styles.text}>{list}</Text>
+            <Text style={styles.text}>{list.list}</Text>
         </View>
     )
 }
