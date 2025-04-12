@@ -6,7 +6,7 @@ import { View, StyleSheet, TouchableOpacity, Image, Text, TextInput, ScrollView 
 
 import { sendRegister } from '../../core/actions/loginAction'
 
-export default function Record() {
+export default function Register() {
    const dispatch = useDispatch()
    const navigate = useNavigate()
 
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
    textInput: {
       height: 60, 
       width: '100%',
-      borderColor: 'darkgray', 
+      borderColor: '#e9eff1', 
       borderWidth: 1,
       fontSize: 16,
       marginTop: 20,

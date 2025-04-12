@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
       marginLeft: 'auto',
       fontWeight: 700,
       fontSize: 20,
-      
+      color: '#454545'
    },
    text: {
       color: 'blue',

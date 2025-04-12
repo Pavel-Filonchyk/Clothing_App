@@ -1,15 +1,30 @@
 import React, { useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-native'
 import { Formik } from 'formik'
 import { View, StyleSheet, TouchableOpacity, Image, Text, TextInput, ScrollView } from 'react-native'
 
+import { sendRegister } from '../../core/actions/loginAction'
+
 export default function PasswordRecovery() {
+   const dispatch = useDispatch()
+   const navigate = useNavigate()
+
+   const onSubmit = (arg) => {
+      dispatch(sendRegister({
+         "action": "remember_pass",
+         "email": arg.email
+      }))
+      navigate('/account')
+   }
+
   return (
    <View style={styles.passwordRecovery}>
       <Text style={styles.titleInput}>Забыли пароль?</Text>
       <Text style={{marginTop: 10}}>Введите ваш email и мы отправим ссылку на восстановление пароля</Text>
       <Formik
-         initialValues={{email: '', password: ''}}
-         onSubmit={values => console.log(values)}
+         initialValues={{email: ''}}
+         onSubmit={values => onSubmit(values)}
          validate={values => {
             const errors = {}
             if (!values.email) errors.email = 'Введите Email'
@@ -53,7 +68,7 @@ const styles = StyleSheet.create({
    textInput: {
       height: 60, 
       width: '100%',
-      borderColor: 'darkgray', 
+      borderColor: '#e9eff1', 
       borderWidth: 1,
       fontSize: 16,
       marginTop: 20,

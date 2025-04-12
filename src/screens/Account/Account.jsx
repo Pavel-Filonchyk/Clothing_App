@@ -22,7 +22,11 @@ export default function Account() {
    
    const onShowInfo = (arg) => {
       dispatch(changeInfo(arg))
-      navigate('/info')
+      if(arg === 'Информация для клиента'){
+         navigate('/infoBlock')
+      }else{
+         navigate('/info')
+      }
    }
 
    return (

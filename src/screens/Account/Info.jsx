@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-native'
 import { View, StyleSheet, TouchableOpacity, Image, Text, TextInput, ScrollView } from 'react-native'
 
-import Record from '../../components/Registration/Record'
+import Register from '../../components/Registration/Register'
 import PasswordRecovery from '../../components/Registration/PasswordRecovery'
 
 import PaymentDelivery from '../../components/Info/InfoRegistration/PaymentDelivery'
@@ -13,17 +13,26 @@ import Contact from '../../components/Info/InfoRegistration/Contact'
 import Support from '../../components/Info/InfoRegistration/Support'
 import InfoAccount from '../../components/Info/InfoAccaunt/InfoAccount'
 import ReviewsQuestions from '../../components/Info/InfoAccaunt/ReviewsQuestions'
-import InfoBlock from '../../components/Info/InfoBlock'
+import InfoBlock from './InfoBlock'
+import Settings from '../../components/Info/InfoAccaunt/Settings'
 
 export default function Info() {
    const navigate = useNavigate()
 
    const info = useSelector(({infoReducer: { info }}) => info)
 
+   const onNavigate = () => {
+      if(info === 'Оплата и доставка' || info === 'Возврат' || info === 'Договор публичной оферты' || info === 'Контакты'){
+         navigate('/infoBlock')
+      }else{
+         navigate('/account')
+      }
+   }
+
    return (
       <View style={styles.info}>
          <View style={styles.wrapTitle} >
-            <TouchableOpacity onPress={() => navigate('/account')}>
+            <TouchableOpacity onPress={onNavigate}>
                <Image 
                   style={styles.arrowLeft}
                   source={require('./images/arrowLeft.png')}
@@ -35,7 +44,7 @@ export default function Info() {
 
          {/* Регистрация */}
          <View style={{display: info === 'Регистрация аккаунта' ? 'flex' : 'none', width: '100%'}}>
-            <Record/>
+            <Register/>
          </View>
          <View style={{display: info === 'Восстановление пароля' ? 'flex' : 'none', width: '100%'}}>
             <PasswordRecovery/>
@@ -66,10 +75,12 @@ export default function Info() {
          <View style={{display: info === 'Уведомления' ? 'flex' : 'none'}}>
             <InfoAccount/>
          </View>
-         <View style={{display: info === 'Информация для клиента' ? 'flex' : 'none', width: '100%'}}>
+         {/* <View style={{display: info === 'Информация для клиента' ? 'flex' : 'none', width: '100%'}}>
             <InfoBlock/>
+         </View> */}
+         <View style={{display: info === 'Настройки' ? 'flex' : 'none', width: '100%'}}>
+            <Settings/>
          </View>
-
       </View>
    )
 }
@@ -79,14 +90,13 @@ const styles = StyleSheet.create({
       flex: 1,
       alignItems: 'center',
       marginTop: 50,
-      width: '100%'
+      width: '100%',
    },
    wrapTitle: {
       width: '100%',
-      height: 38,
+      height: 40,
       flexDirection: 'row',
       justifyContent: 'space-between',
-      alignItems: 'center',
       borderBottomWidth: 1,
       borderColor: '#e9eff1',
    },

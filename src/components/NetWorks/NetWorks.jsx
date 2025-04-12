@@ -2,6 +2,16 @@ import React from 'react'
 import { View, StyleSheet, TouchableOpacity, Image, Text, TextInput, ScrollView, Linking } from 'react-native'
 
 export default function NetWorks() {
+   const openLink = async (url, fallbackUrl) => {
+      const supported = await Linking.canOpenURL(url)
+      if (supported) {
+         await Linking.openURL(url)
+      } else if (fallbackUrl) {
+         await Linking.openURL(fallbackUrl)
+      } else {
+         Alert.alert('Ошибка', 'Невозможно открыть ссылку')
+      }
+   }
    return (
       <View style={styles.networks}>
          <TouchableOpacity

@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
       marginLeft: 'auto',
       fontWeight: 600,
       fontSize: 16,
-      
+      color: '#454545'
    },
    phoneNumber: {
       fontWeight: 600,

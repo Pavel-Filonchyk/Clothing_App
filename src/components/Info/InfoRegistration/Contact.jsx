@@ -1,11 +1,12 @@
 import React from 'react'
-import { View, StyleSheet, Text, ScrollView, Linking } from 'react-native'
+import { View, StyleSheet, Text, ScrollView, Linking, Dimensions } from 'react-native'
+import { WebView } from 'react-native-webview'
 
 export default function Contact() {
   return (
     <View style={styles.contact}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-         <Text style={styles.title}>Адрес и время работы:</Text>
+     
+         {/* <Text style={styles.title}>Адрес и время работы:</Text>
          <Text style={{marginBottom: 40}}>
             {`
 Беларусь, г. Брест, ул. Ясеневая, д. 5/2 к. 41
@@ -41,8 +42,30 @@ E-mail: info@q5.by
 Юридический адрес
 Беларусь, г. Брест, ул. Ясеневая, д. 5/2 к. 41 224022
 `}
-         </Text>
-      </ScrollView>
+         </Text> */}
+      {/* <WebView source={{ uri: 'https://create-site.by' }}/> */}
+      <View style={styles.contact}>
+      <WebView 
+        source={{ uri: 'https://create-site.by' }}
+        style={styles.webview}
+        startInLoadingState={true}
+        renderLoading={() => (
+          <View style={styles.loading}>
+            <Text>Загрузка...</Text>
+          </View>
+        )}
+        onError={(syntheticEvent) => {
+          const { nativeEvent } = syntheticEvent
+          console.log('WebView error: ', nativeEvent)
+        }}
+        onHttpError={(syntheticEvent) => {
+          const { nativeEvent } = syntheticEvent
+          console.log('HTTP error: ', nativeEvent.statusCode)
+        }}
+      />
+   </View>
+
+
    </View>
   )
 }
@@ -59,6 +82,17 @@ const styles = StyleSheet.create({
       marginTop: 25,
       fontWeight: 700,
       fontSize: 20,
-      
+      color: '#454545'
    },
+   webview: {
+      flex: 1,
+      width: Dimensions.get('window').width,
+      height: Dimensions.get('window').height,
+   },
+   loading: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+   },
+
 })

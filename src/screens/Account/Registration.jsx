@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-native'
 import { View, StyleSheet, TouchableOpacity, Image, Text, TextInput, ScrollView, Linking } from 'react-native'
-import InfoBlock from '../../components/Info/InfoBlock'
+import InfoBlock from './InfoBlock'
 import Flag from 'react-native-flags'
 
 import Login from '../../components/Registration/Login'
@@ -20,17 +20,6 @@ export default function Registration() {
       navigate('/info')
    }
 
-   const openLink = async (url, fallbackUrl) => {
-     const supported = await Linking.canOpenURL(url)
-     if (supported) {
-         await Linking.openURL(url)
-      } else if (fallbackUrl) {
-         await Linking.openURL(fallbackUrl)
-     } else {
-         Alert.alert('Ошибка', 'Невозможно открыть ссылку')
-     }
-   }
-   
    return (
       <View style={styles.registration}>
          <ScrollView style={styles.scroll} showsVerticalScrollIndicator={false}>

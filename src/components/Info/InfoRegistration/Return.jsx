@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
       marginTop: 25,
       fontWeight: 700,
       fontSize: 20,
-      
+      color: '#454545'
    },
    text: {
       color: 'blue',
