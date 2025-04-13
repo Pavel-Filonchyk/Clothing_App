@@ -21,12 +21,8 @@ export default function Account() {
    }, [statusRegister])
    
    const onShowInfo = (arg) => {
-      dispatch(changeInfo(arg))
-      if(arg === 'Информация для клиента'){
-         navigate('/infoBlock')
-      }else{
-         navigate('/info')
-      }
+      dispatch(changeInfo({page: arg, move: 'add'}))
+      navigate('/info')
    }
 
    return (
@@ -48,10 +44,14 @@ export default function Account() {
                   </View>
                   <Text style={styles.name}>Lena</Text>
                </View>
-               <Image 
-                  style={styles.fix}
-                  source={require('./images/pen.png')}
-               />
+               <TouchableOpacity 
+                  onPress={() => onShowInfo('Редактирование аккаунта')}
+               >
+                  <Image 
+                     style={styles.fix}
+                     source={require('./images/pen.png')}
+                  />
+               </TouchableOpacity>
             </View>
 
             {/* info */}

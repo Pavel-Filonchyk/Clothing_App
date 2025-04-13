@@ -47,7 +47,7 @@ export default function Subcatalog() {
                   </TouchableOpacity>
                )
             })}
-      </ScrollView>
+         </ScrollView>
    </View>
    )
 }

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-native'
 import { View, StyleSheet, TouchableOpacity, Image, Text, TextInput, ScrollView, Linking } from 'react-native'
-import InfoBlock from './InfoBlock'
+import InfoBlock from '../../components/Info/InfoBlock'
 import Flag from 'react-native-flags'
 
 import Login from '../../components/Registration/Login'

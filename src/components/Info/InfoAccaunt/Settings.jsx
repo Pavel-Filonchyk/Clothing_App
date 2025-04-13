@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { View, StyleSheet, TouchableOpacity, Text, Switch, ScrollView, Linking } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, Text, Switch, ScrollView, Image } from 'react-native'
 import Flag from 'react-native-flags'
-export default function Settings() {
 
+export default function Settings() {
    const [currency, setCurrency] = useState('BYN')
    const [subscription, setSubscription] = useState(true)
    const [serviceMessages, setServiceMessages] = useState(true)
@@ -37,7 +37,7 @@ export default function Settings() {
                thumbColor={"#FFFFFF"}
             />
          </View>
-         <View style={[styles.settingItem, {height: 96}]}>
+         <View style={styles.settingItem}>
             <View>
                <Text style={styles.textInfo}>Сервисные сообщения</Text>
                <Text style={styles.text}>Уведомления о получении оплаты, отправке и ответах на ваши вопросы о товарах</Text>
@@ -48,6 +48,15 @@ export default function Settings() {
                onValueChange={setServiceMessages}
                thumbColor={"#FFFFFF"}
             />
+         </View>
+         <View style={[styles.settingItem, {marginTop: 30, alignItems: 'center'}]}>
+            <Text style={styles.textInfo}>Удалить аккаунт</Text>
+            <TouchableOpacity>
+               <Image 
+                  style={styles.delete}
+                  source={require('./images/delete.png')}
+               />
+            </TouchableOpacity>
          </View>
        </ScrollView>
    </View>
@@ -94,9 +103,13 @@ const styles = StyleSheet.create({
       justifyContent: 'space-between',
       alignItems: 'flex-start',
       width: '100%',
-      height: 64,
+      paddingBottom: 18,
       marginTop: 20,
       borderBottomWidth: 1,
       borderColor: '#e9eff1',
     },
+    delete: {
+      width: 28,
+      height: 28
+    }
 })

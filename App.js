@@ -12,7 +12,6 @@ import Like from './src/screens/Like/Like'
 import Card from './src/screens/Card/Card'
 import Account from './src/screens/Account/Account'
 import Info from './src/screens/Account/Info'
-import InfoBlock from './src/screens/Account/InfoBlock'
 import Footer from './src/components/Footer/Footer'
 
 export default function App() {
@@ -32,7 +31,6 @@ export default function App() {
 
             {/* account */}
             <Route path="/account" element={<Account/>}/>
-            <Route path="/infoBlock" element={<InfoBlock/>}/>
             <Route path="/info" element={<Info/>}/>
           </Routes>
           <Footer/>

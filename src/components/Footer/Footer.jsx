@@ -4,13 +4,14 @@ import { View, StyleSheet, TouchableOpacity, Image, Text } from 'react-native'
 import { useNavigate } from 'react-router-native'
 
 import { changeNamePage } from '../../core/actions/stylesAction'
+import { changeInfo } from '../../core/actions/infoAction'
 
 export default function Footer() {
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 
 	const namePage = useSelector(({stylesReducer: { namePage }}) => namePage)
-	
+
 	const onChangePage = (arg) => {
 		dispatch(changeNamePage(arg))
 		if (arg === 'main') {

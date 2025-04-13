@@ -13,17 +13,23 @@ import Contact from '../../components/Info/InfoRegistration/Contact'
 import Support from '../../components/Info/InfoRegistration/Support'
 import InfoAccount from '../../components/Info/InfoAccaunt/InfoAccount'
 import ReviewsQuestions from '../../components/Info/InfoAccaunt/ReviewsQuestions'
-import InfoBlock from './InfoBlock'
+import EditAccount from '../../components/Info/InfoAccaunt/EditAccount'
 import Settings from '../../components/Info/InfoAccaunt/Settings'
+import InfoBlock from '../../components/Info/InfoBlock'
+
+import { changeInfo } from '../../core/actions/infoAction'
 
 export default function Info() {
+   const dispatch = useDispatch()
    const navigate = useNavigate()
 
    const info = useSelector(({infoReducer: { info }}) => info)
+   console.log(info)
 
    const onNavigate = () => {
-      if(info === 'Оплата и доставка' || info === 'Возврат' || info === 'Договор публичной оферты' || info === 'Контакты'){
-         navigate('/infoBlock')
+      dispatch(changeInfo({move: 'delete'}))
+      if(info?.length > 1){
+         navigate('/info')
       }else{
          navigate('/account')
       }
@@ -38,48 +44,33 @@ export default function Info() {
                   source={require('./images/arrowLeft.png')}
                />
             </TouchableOpacity>
-            <Text style={styles.title}>{info}</Text>
+            <Text style={styles.title}>{info[info.length -1]}</Text>
             <View style={{width: 60}}/>
          </View>
 
-         {/* Регистрация */}
-         <View style={{display: info === 'Регистрация аккаунта' ? 'flex' : 'none', width: '100%'}}>
-            <Register/>
-         </View>
-         <View style={{display: info === 'Восстановление пароля' ? 'flex' : 'none', width: '100%'}}>
-            <PasswordRecovery/>
-         </View>
-         <View style={{display: info === 'Оплата и доставка' ? 'flex' : 'none'}}>
-            <PaymentDelivery/>
-         </View>
-         <View style={{display: info === 'Возврат' ? 'flex' : 'none'}}>
-            <Return/>
-         </View>
-         <View style={{display: info === 'Договор публичной оферты' ? 'flex' : 'none'}}>
-            <OfferAgreement/>
-         </View>
-         <View style={{display: info === 'Контакты' ? 'flex' : 'none'}}>
-            <Contact/>
-         </View>
-         <View style={{display: info === 'Связаться с поддержкой' ? 'flex' : 'none'}}>
-            <Support/>
-         </View>
+         <View style={{width: '100%'}}>
+            {
+               // Регистрация
+               info[info.length -1] === 'Регистрация аккаунта' ? <Register/>
+               : info[info.length -1] === 'Восстановление пароля' ? <PasswordRecovery/>
 
-         {/* Аккаунт */}
-         <View style={{display: info === 'Мои заказы' ? 'flex' : 'none'}}>
-            <InfoAccount/>
-         </View>
-         <View style={{display: info === 'Мои отзывы и вопросы' ? 'flex' : 'none'}}>
-            <ReviewsQuestions/>
-         </View>
-         <View style={{display: info === 'Уведомления' ? 'flex' : 'none'}}>
-            <InfoAccount/>
-         </View>
-         {/* <View style={{display: info === 'Информация для клиента' ? 'flex' : 'none', width: '100%'}}>
-            <InfoBlock/>
-         </View> */}
-         <View style={{display: info === 'Настройки' ? 'flex' : 'none', width: '100%'}}>
-            <Settings/>
+               // info block
+               : info[info.length -1] === 'Оплата и доставка' ? <PaymentDelivery/>
+               : info[info.length -1] === 'Возврат' ? <Return/> 
+               : info[info.length -1] === 'Договор публичной оферты' ? <OfferAgreement/>
+               : info[info.length -1] === 'Контакты' ? <Contact/>
+               : info[info.length -1] === 'Связаться с поддержкой' ? <Support/>
+               
+               // Аккаунт
+               : info[info.length -1] === 'Редактирование аккаунта' ? <EditAccount/>
+               : info[info.length -1] === 'Мои заказы' ? <InfoAccount/>
+               : info[info.length -1] === 'Мои отзывы и вопросы' ? <ReviewsQuestions/>
+               : info[info.length -1] === 'Уведомления' ?  <InfoAccount/>
+               : info[info.length -1] === 'Настройки' ? <Settings/>
+               : info[info.length -1] === 'Информация для клиента' ? <InfoBlock/>
+               : ''
+            }
+            
          </View>
       </View>
    )

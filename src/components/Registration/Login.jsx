@@ -61,7 +61,7 @@ export default function Login() {
                   value={values.password}
                   style={styles.textInput}
                />
-               {touched.email && errors.email && (<Text style={styles.error}>{errors.password}</Text>)}
+               {touched.password && errors.password && (<Text style={styles.error}>{errors.password}</Text>)}
                <TouchableOpacity onPress={() => onToInfo('Восстановление пароля')} style={styles.wrapForgotPassword}>
                   <Text style={styles.textForgotPassword}>Забыли пароль?</Text>
                </TouchableOpacity>
