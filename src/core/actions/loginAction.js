@@ -13,4 +13,9 @@ export const sendRegisterSuccess = (data) => {
    } 
 }
 
+export const resetRegister = () => {
+    return {
+        type: 'RESET_REGISTER'
+    } 
+}
 

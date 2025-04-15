@@ -48,7 +48,7 @@ export default function Info() {
             <View style={{width: 60}}/>
          </View>
 
-         <View style={{width: '100%'}}>
+         <View style={{width: '100%', flex: 1}}>
             {
                // Регистрация
                info[info.length -1] === 'Регистрация аккаунта' ? <Register/>

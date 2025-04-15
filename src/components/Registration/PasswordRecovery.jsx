@@ -1,21 +1,34 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-native'
 import { Formik } from 'formik'
-import { View, StyleSheet, TouchableOpacity, Image, Text, TextInput, ScrollView } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, Image, Text, TextInput, Alert } from 'react-native'
 
-import { sendRegister } from '../../core/actions/loginAction'
+import { sendRegister, resetRegister } from '../../core/actions/loginAction'
 
 export default function PasswordRecovery() {
    const dispatch = useDispatch()
    const navigate = useNavigate()
+
+   const statusRegister = useSelector(({loginReducer: { statusRegister }}) => statusRegister)
+
+   useEffect(() => {
+      if(statusRegister === 'Клиент с такой почтой не зарегистрирован на сайте' || statusRegister === 'Адрес электронной почты некорректен'){
+         Alert.alert(statusRegister)
+         dispatch(resetRegister())
+      }
+      if(statusRegister === 'Пароль успешно отправлен на почту клиента'){
+         Alert.alert(statusRegister)
+         navigate('/account')
+         dispatch(resetRegister())
+      }
+   }, [statusRegister])
 
    const onSubmit = (arg) => {
       dispatch(sendRegister({
          "action": "remember_pass",
          "email": arg.email
       }))
-      navigate('/account')
    }
 
   return (
@@ -27,7 +40,10 @@ export default function PasswordRecovery() {
          onSubmit={values => onSubmit(values)}
          validate={values => {
             const errors = {}
-            if (!values.email) errors.email = 'Введите Email'
+            if (!values.email){errors.email = 'Введите Email'}
+            else if (!/^\S+@\S+\.\S+$/.test(values.email)){
+               errors.email = 'Некорректный email'
+            }
             return errors
          }}
       >

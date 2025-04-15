@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-native'
 import { Formik } from 'formik'
-import { View, StyleSheet, TouchableOpacity, Image, Text, TextInput, ScrollView } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, Image, Text, TextInput, ScrollView, Alert } from 'react-native'
 
 import { changeInfo } from '../../core/actions/infoAction'
-import { sendRegister } from '../../core/actions/loginAction'
+import { sendRegister, resetRegister } from '../../core/actions/loginAction'
 
 export default function Login() {
    const dispatch = useDispatch()
@@ -14,12 +14,12 @@ export default function Login() {
    const statusRegister = useSelector(({loginReducer: { statusRegister }}) => statusRegister)
    
    useEffect(() => {
-      console.log(statusRegister)
-      //navigate('/account')
-      //Выполняется вход пользователя
+      if(statusRegister === 'Неверный пароль' || statusRegister === 'Пользователь не найден' || statusRegister === 'Пользователь не найден' || statusRegister === 'Адрес электронной почты некорректен'){
+         Alert.alert(statusRegister)
+         dispatch(resetRegister())
+      }
    }, [statusRegister])
    
-
    const onSubmit = (arg) => {
       dispatch(sendRegister({
          "action": "login",
@@ -29,7 +29,7 @@ export default function Login() {
    }
 
    const onToInfo = (arg) => {
-      dispatch(changeInfo(arg))
+      dispatch(changeInfo({page: arg, move: 'add'}))
       navigate('/info')
    }
 
@@ -41,7 +41,10 @@ export default function Login() {
          onSubmit={values => onSubmit(values)}
          validate={values => {
             const errors = {}
-            if (!values.email) errors.email = 'Введите Email'
+            if (!values.email){errors.email = 'Введите Email'}
+            else if (!/^\S+@\S+\.\S+$/.test(values.email)){
+               errors.email = 'Некорректный email'
+            }
             if (!values.password) errors.password = 'Введите Пароль'
             return errors
          }}

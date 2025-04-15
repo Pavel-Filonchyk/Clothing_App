@@ -14,12 +14,12 @@ export default function Account() {
    const statusRegister = useSelector(({loginReducer: { statusRegister }}) => statusRegister)
    console.log(statusRegister)
 
-   const [showRegistartion, setShowRegistration] = useState(false)
+   const [showRegistartion, setShowRegistration] = useState(true)
 
    useEffect(() => {
      //if(statusRegister)setShowRegistration(false)
    }, [statusRegister])
-   
+
    const onShowInfo = (arg) => {
       dispatch(changeInfo({page: arg, move: 'add'}))
       navigate('/info')

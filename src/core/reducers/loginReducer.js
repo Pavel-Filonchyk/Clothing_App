@@ -15,6 +15,11 @@ const loginReducer = (state = initialState, action) => {
                ...state,
             statusRegister: action.payload
          }
+      case 'RESET_REGISTER':
+         return {
+               ...state,
+            statusRegister: null
+         }
 
        default: 
        return state;  

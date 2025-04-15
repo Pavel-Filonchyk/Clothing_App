@@ -49,7 +49,7 @@ export default function InfoBlock() {
 const styles = StyleSheet.create({
   info: {
    flex: 1,
-   marginTop: 20,
+   //marginTop: 20,
    width: '100%',
    paddingLeft: 32,
    paddingRight: 32,

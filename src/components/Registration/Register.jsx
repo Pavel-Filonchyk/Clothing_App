@@ -1,16 +1,28 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-native'
 import { Formik } from 'formik'
-import { View, StyleSheet, TouchableOpacity, Image, Text, TextInput, ScrollView } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, Image, Text, TextInput, ScrollView, Alert} from 'react-native'
 
-import { sendRegister } from '../../core/actions/loginAction'
+import { sendRegister, resetRegister } from '../../core/actions/loginAction'
 
 export default function Register() {
    const dispatch = useDispatch()
    const navigate = useNavigate()
 
    const [errorPassword, setErrorPassword] = useState('')
+   const statusRegister = useSelector(({loginReducer: { statusRegister }}) => statusRegister)       
+
+   useEffect(() => {
+      if(statusRegister === 'Пользователь с такой почтой уже есть на сайте'){
+         Alert.alert(statusRegister)
+         dispatch(resetRegister())
+      }
+      if(statusRegister === 'Адрес электронной почты некорректен'){
+         Alert.alert(statusRegister)
+         dispatch(resetRegister())
+      }
+   }, [statusRegister])
 
    const onSubmit = (arg) => {
       if(arg.password !== arg.doublePassword){
@@ -18,10 +30,11 @@ export default function Register() {
       }else{
          dispatch(sendRegister({
             "action": "register",
+            "name": arg.name,
             "email": arg.email,
             "password": arg.password
          }))
-         navigate('/account')
+         //navigate('/account')
          //Выполняется регистрация пользователя
       }
    }
@@ -35,7 +48,10 @@ export default function Register() {
             onSubmit={values => onSubmit(values)}
             validate={values => {
                const errors = {}
-               if (!values.name) errors.name = 'Введите Ваше имя'
+               if (!values.name){errors.name = 'Введите Ваше имя'}
+               else if (!/^\S+@\S+\.\S+$/.test(values.email)){
+                  errors.email = 'Некорректный email'
+               }
                if (!values.email) errors.email = 'Введите Email'
                if (!values.password) errors.password = 'Введите Пароль'
                if (!values.doublePassword) errors.doublePassword = 'Повторите Пароль'
