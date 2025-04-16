@@ -73,7 +73,7 @@ export default function Footer() {
 						/>
 					:   <Image 
 							style={styles.btnFooter}
-							source={require('./images/heartGray.png')}
+							source={require('./images/listGray.png')}
 						/>
 				}
 				<Text style={{color: namePage === 'like' ? '#454545' : "#b5bbbd", fontSize: 10, fontWeight: '600'}}>
@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
 		backgroundColor: 'white',
 		justifyContent: 'space-around',
 		alignItems: 'center',
-		position: 'fixed'
+		position: 'fixed',
 	},
 	container: {
 		alignItems: 'center',

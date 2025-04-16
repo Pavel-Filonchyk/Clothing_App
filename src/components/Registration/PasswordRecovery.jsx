@@ -14,7 +14,7 @@ export default function PasswordRecovery() {
 
    useEffect(() => {
       if(statusRegister === 'Клиент с такой почтой не зарегистрирован на сайте' || statusRegister === 'Адрес электронной почты некорректен'){
-         Alert.alert(statusRegister)
+         Alert.alert(statusRegister === 'Клиент с такой почтой не зарегистрирован на сайте' ? 'Клиент с такой почтой не зарегистрирован' : statusRegister)
          dispatch(resetRegister())
       }
       if(statusRegister === 'Пароль успешно отправлен на почту клиента'){

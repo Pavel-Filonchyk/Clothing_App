@@ -12,14 +12,14 @@ export default function Login() {
    const navigate = useNavigate()
 
    const statusRegister = useSelector(({loginReducer: { statusRegister }}) => statusRegister)
-   
+   console.log(statusRegister)
    useEffect(() => {
-      if(statusRegister === 'Неверный пароль' || statusRegister === 'Пользователь не найден' || statusRegister === 'Пользователь не найден' || statusRegister === 'Адрес электронной почты некорректен'){
+      if(statusRegister === 'Неверный пароль' || statusRegister === 'Пользователь не найден'){
          Alert.alert(statusRegister)
          dispatch(resetRegister())
       }
    }, [statusRegister])
-   
+   // client_id: "351004"
    const onSubmit = (arg) => {
       dispatch(sendRegister({
          "action": "login",

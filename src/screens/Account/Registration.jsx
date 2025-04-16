@@ -8,18 +8,24 @@ import Flag from 'react-native-flags'
 import Login from '../../components/Registration/Login'
 import NetWorks from '../../components/NetWorks/NetWorks'
 import { changeInfo } from '../../core/actions/infoAction'
+import { changeCurrency } from '../../core/actions/loginAction'
 
 export default function Registration() {
    const dispatch = useDispatch()
    const navigate = useNavigate()
    
-   const [currency, setCurrency] = useState('BYN')
+   const currency = useSelector(({loginReducer: { currency }}) => currency)
+   
+   const [valuta, setValuta] = useState('rur')
 
    const onShowInfo = (arg) => {
       dispatch(changeInfo(arg))
       navigate('/info')
    }
-
+   const onCurrency = () => {
+      setValuta(prev => prev === 'rub' ? 'rur' : 'rub')
+      dispatch(changeCurrency(valuta))
+   }
    return (
       <View style={styles.registration}>
          <ScrollView style={styles.scroll} showsVerticalScrollIndicator={false}>
@@ -31,14 +37,14 @@ export default function Registration() {
                //onPress={() => onShowInfo('')}
             >
                <Text style={info.textInfo}>Валюта</Text>
-               <TouchableOpacity onPress={() => setCurrency(prev => prev === 'BYN' ? 'RUB' : 'BYN')}>
+               <TouchableOpacity onPress={onCurrency}>
                   <View style={{flexDirection: 'row', alignItems: 'center'}}>
                      <Flag 
-                        code={currency === 'BYN' ? 'BY' : 'RU'} 
+                        code={currency === 'rub' ? 'BY' : 'RU'} 
                         size={32} 
                      />
                      <Text style={{marginLeft: 8, color: '#454545'}}>
-                        {currency === 'BYN' ? 'BYN' : 'RUB'}
+                        {currency === 'rub' ? 'BYN' : 'RUB'}
                      </Text>
                   </View>
                </TouchableOpacity>

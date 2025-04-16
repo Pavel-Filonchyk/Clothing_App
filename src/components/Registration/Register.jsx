@@ -10,16 +10,19 @@ export default function Register() {
    const dispatch = useDispatch()
    const navigate = useNavigate()
 
-   const [errorPassword, setErrorPassword] = useState('')
    const statusRegister = useSelector(({loginReducer: { statusRegister }}) => statusRegister)       
+   const currency = useSelector(({loginReducer: { currency }}) => currency)
+
+   const [errorPassword, setErrorPassword] = useState('')
 
    useEffect(() => {
       if(statusRegister === 'Пользователь с такой почтой уже есть на сайте'){
-         Alert.alert(statusRegister)
+         Alert.alert('Пользователь с такой почтой уже существует')
          dispatch(resetRegister())
       }
-      if(statusRegister === 'Адрес электронной почты некорректен'){
-         Alert.alert(statusRegister)
+      if(statusRegister === 'Пользователь успешно зарегистрирован на сайте'){
+         Alert.alert('Вы успешно зарегистрированы')
+         navigate('/account')
          dispatch(resetRegister())
       }
    }, [statusRegister])
@@ -32,10 +35,9 @@ export default function Register() {
             "action": "register",
             "name": arg.name,
             "email": arg.email,
-            "password": arg.password
+            "password": arg.password,
+            "valuta": currency
          }))
-         //navigate('/account')
-         //Выполняется регистрация пользователя
       }
    }
 

@@ -6,6 +6,7 @@ import { View, StyleSheet, TouchableOpacity, Image, Text, TextInput } from 'reac
 import Registration from './Registration'
 import NetWorks from '../../components/NetWorks/NetWorks'
 import { changeInfo } from '../../core/actions/infoAction'
+import { getDataAccount } from '../../core/actions/loginAction'
 
 export default function Account() {
    const dispatch = useDispatch()
@@ -13,9 +14,13 @@ export default function Account() {
 
    const statusRegister = useSelector(({loginReducer: { statusRegister }}) => statusRegister)
    console.log(statusRegister)
+   
+   const [showRegistartion, setShowRegistration] = useState(false)
 
-   const [showRegistartion, setShowRegistration] = useState(true)
-
+   useEffect(() => {
+      dispatch(getDataAccount())
+   }, [])
+   
    useEffect(() => {
      //if(statusRegister)setShowRegistration(false)
    }, [statusRegister])

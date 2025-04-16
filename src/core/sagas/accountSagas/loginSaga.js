@@ -1,7 +1,7 @@
 import { takeEvery, put, call, select } from 'redux-saga/effects'
-import { SEND_REGISTER, sendRegisterSuccess } from '../actions/loginAction'
-import httpProvider from '../../common/httpProvider'
-import { LOGIN_URL } from '../../common/api'
+import { SEND_REGISTER, sendRegisterSuccess } from '../../actions/loginAction'
+import httpProvider from '../../../common/httpProvider'
+import { LOGIN_URL } from '../../../common/api'
 
 function* workerLoader() {
     const register = yield select(state => state.loginReducer.register)
