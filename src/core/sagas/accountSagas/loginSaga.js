@@ -4,16 +4,15 @@ import httpProvider from '../../../common/httpProvider'
 import { LOGIN_URL } from '../../../common/api'
 
 function* workerLoader() {
-    const register = yield select(state => state.loginReducer.register)
-  
-    try {
-        const { data } = yield call(httpProvider.post, LOGIN_URL, {data: register})
-        
-        yield put(sendRegisterSuccess(data))
-      } catch (error) {
-        yield put(console.log(error))
-      }
+  const register = yield select(state => state.loginReducer.register)
+  console.log(register)
+  try {
+    const { data } = yield call(httpProvider.post, LOGIN_URL, {data: register})
+    yield put(sendRegisterSuccess(data))
+  } catch (error) {
+    yield put(console.log(error))
   }
+}
 
 export default function* watcherLogin() {
   yield takeEvery(SEND_REGISTER, workerLoader)

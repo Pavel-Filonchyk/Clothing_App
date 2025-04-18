@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { View, StyleSheet, TouchableOpacity, Image, Text } from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import { getCatalog } from '../../core/actions/getCatalogAction'
+import { getDataAccount } from '../../core/actions/loginAction'
 
 export default function Main() {
     const dispatch = useDispatch()
@@ -10,7 +12,26 @@ export default function Main() {
     useEffect(() => {
         dispatch(getCatalog())
     }, [])
-    
+    useEffect(() => {
+        const getItemStorage = async () => {
+            try {
+                const value = await AsyncStorage.getItem('auth')
+                const auth = JSON.parse(value)
+                console.log(auth)
+                if (auth.id){
+                    dispatch(getDataAccount({
+                        "action": "dataUser",
+                        "id": auth.id,
+                        "password": auth.password
+                    }))
+                }
+                
+            } catch(e) {
+                console.log(e)
+            }
+        }
+        getItemStorage()
+    }, [])
     return (
         <View style={styles.main}>
             <View style={styles.wrapImg}>

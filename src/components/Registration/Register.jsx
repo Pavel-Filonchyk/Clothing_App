@@ -25,6 +25,15 @@ export default function Register() {
          navigate('/account')
          dispatch(resetRegister())
       }
+      const onConfirmCode = async () => {
+         try {
+            const jsonValue = JSON.stringify({"id": statusRegister?.client_id, "password": statusRegister?.password})
+            await AsyncStorage.setItem('auth', jsonValue)
+         } catch (e) {
+            console.log(e)
+         }
+      }
+      onConfirmCode()
    }, [statusRegister])
 
    const onSubmit = (arg) => {

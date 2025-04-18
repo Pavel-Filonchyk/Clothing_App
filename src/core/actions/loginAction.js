@@ -12,9 +12,10 @@ export const sendRegisterSuccess = (data) => {
    } 
 }
 
-export const getDataAccount = () => {
+export const getDataAccount = (data) => {
     return {
-        type: 'GET_DATA_ACCOUNT'
+        type: 'GET_DATA_ACCOUNT',
+        payload: data 
     } 
 }
 export const GET_DATA_ACCOUNT = 'GET_DATA_ACCOUNT'

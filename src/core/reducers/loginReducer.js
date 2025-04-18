@@ -1,9 +1,11 @@
 const initialState = {
-   register: {},
-   statusRegister: null,
+   dataUser: null,
    dataAccount: null,
+   register: {},
+   auth: null,
    currency: 'rub',
-   deleteAccount: {}
+   deleteAccount: {},
+   statusRegister: null
 }
 
 const loginReducer = (state = initialState, action) => {
@@ -18,10 +20,15 @@ const loginReducer = (state = initialState, action) => {
             ...state,
             statusRegister: action.payload
          }
+      case 'GET_DATA_ACCOUNT':
+         return {
+            ...state,
+            auth: action.payload
+         }
       case 'GET_DATA_ACCOUNT_SUCCESS':
          return {
             ...state,
-            dataAccount: action.payload
+            dataUser: action.payload
          }
       case 'CHANGE_ACCOUNT':
          return {
@@ -39,7 +46,6 @@ const loginReducer = (state = initialState, action) => {
             statusRegister: null
          }
       case 'CHANGE_CURRENCY':
-         console.log(action.payload)
          return {
             ...state,
             currency: action.payload

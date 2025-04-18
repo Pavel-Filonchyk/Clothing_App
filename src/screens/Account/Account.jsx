@@ -6,24 +6,19 @@ import { View, StyleSheet, TouchableOpacity, Image, Text, TextInput } from 'reac
 import Registration from './Registration'
 import NetWorks from '../../components/NetWorks/NetWorks'
 import { changeInfo } from '../../core/actions/infoAction'
-import { getDataAccount } from '../../core/actions/loginAction'
 
 export default function Account() {
    const dispatch = useDispatch()
    const navigate = useNavigate()
 
    const statusRegister = useSelector(({loginReducer: { statusRegister }}) => statusRegister)
-   console.log(statusRegister)
-   
-   const [showRegistartion, setShowRegistration] = useState(false)
-
-   useEffect(() => {
-      dispatch(getDataAccount())
-   }, [])
+   const dataUser = useSelector(({loginReducer: { dataUser }}) => dataUser)
+   console.log(dataUser)
+   const [showRegistartion, setShowRegistration] = useState(true)
    
    useEffect(() => {
-     //if(statusRegister)setShowRegistration(false)
-   }, [statusRegister])
+     if(dataUser?.id)setShowRegistration(false)
+   }, [dataUser])
 
    const onShowInfo = (arg) => {
       dispatch(changeInfo({page: arg, move: 'add'}))

@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-native'
 import { Formik } from 'formik'
 import { View, StyleSheet, TouchableOpacity, Image, Text, TextInput, ScrollView, Alert } from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import { changeInfo } from '../../core/actions/infoAction'
 import { sendRegister, resetRegister } from '../../core/actions/loginAction'
@@ -18,6 +19,16 @@ export default function Login() {
          Alert.alert(statusRegister)
          dispatch(resetRegister())
       }
+
+      const onConfirmCode = async () => {
+         try {
+            const jsonValue = JSON.stringify({"id": statusRegister?.client_id, "password": statusRegister?.password})
+            await AsyncStorage.setItem('auth', jsonValue)
+         } catch (e) {
+            console.log(e)
+         }
+      }
+      onConfirmCode()
    }, [statusRegister])
    // client_id: "351004"
    const onSubmit = (arg) => {
@@ -26,8 +37,9 @@ export default function Login() {
          "email": arg.email,
          "password": arg.password
       }))
-   }
 
+   }
+   
    const onToInfo = (arg) => {
       dispatch(changeInfo({page: arg, move: 'add'}))
       navigate('/info')
